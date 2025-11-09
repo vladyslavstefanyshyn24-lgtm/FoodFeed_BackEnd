@@ -8,7 +8,7 @@ class Dish extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'title', 'photo_url', 'ingredients', 'is_public'];
+    protected $fillable = ['user_id', 'title', 'photo_url', 'ingredients',    'description', 'is_public'];
 
     public function user() {
         return $this->belongsTo(User::class);

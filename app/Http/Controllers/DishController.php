@@ -26,6 +26,7 @@ class DishController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'ingredients' => 'required|string',
+            'description' => 'nullable|string',
             'photo' => 'nullable|image|max:2048',
             'is_public' => 'required|boolean'
         ]);
@@ -39,6 +40,7 @@ class DishController extends Controller
             'user_id' => Auth::id(),
             'title' => $request->title,
             'ingredients' => $request->ingredients,
+            'description' => $request->description,
             'photo_url' => $photo_url,
             'is_public' => $request->is_public,
         ]);
@@ -53,6 +55,7 @@ class DishController extends Controller
         $request->validate([
             'title' => 'sometimes|required|string|max:255',
             'ingredients' => 'sometimes|required|string',
+            'description' => 'sometimes|nullable|string',
             'photo' => 'nullable|image|max:2048',
             'is_public' => 'sometimes|required|boolean'
         ]);
@@ -64,7 +67,7 @@ class DishController extends Controller
             $dish->photo_url = $request->file('photo')->store('dishes', 'public');
         }
 
-        $dish->update($request->only(['title', 'ingredients', 'is_public']));
+        $dish->update($request->only(['title', 'ingredients','description', 'is_public']));
 
         return response()->json($dish);
     }
